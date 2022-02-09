@@ -2,17 +2,17 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/cuberdude/.oh-my-zsh"
+export ZSH="/home/gaurav/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="fino-time"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -26,8 +26,14 @@ ZSH_THEME="robbyrussell"
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -39,6 +45,8 @@ ZSH_THEME="robbyrussell"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -58,11 +66,11 @@ ZSH_THEME="robbyrussell"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git z zsh-autosuggestions zsh-syntax-highlighting command-not-found vscode sudo gcloud)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -83,9 +91,6 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -94,68 +99,19 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-ginit () {
-    if (( $# != 1 )); then
-        echo "Add the remote and nothing else"
-    fi 
-    git init
-    if [! -f README.md ]; then
-        echo "#README" > README.md
-    fi
-    git add .
-    git commit -m "first commit"
-    git remote add origin $1 
-}
-
-startdude(){
-    code
-    firefox &
-}
-
-spostman(){
-    postman &
-}
-
 alias gac="git add .
 git commit -m $1"
 
-gpush(){
-    if (( $# == 0 )); then
-        git push origin master
-    elif (($# == 1)); then
-        git push $1 master
-    elif (($# == 2)); then
-        git push $1 $2
-    else 
-        exit 1
-    fi
-}
+alias gc="git commit -m $1"
+alias editzsh="code ~/.zshrc"
+alias cls="clear"
+# MAKE DOCKER STOP AND RM ALL
 
-djmigrate(){
-    python3 manage.py makemigrations $@
-    python3 manage.py migrate $@
-}
+neofetch
 
-djrun(){
-    if (( $# <2 )); then
-        python3 manage.py runserver $@ 
-    else
-        echo "Add the host:port and nothing else"
-    fi
-}
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
 
-envstart(){
-    pipenv --python 3
-    pipenv shell
-}
-
-djstart(){    
-    if (($#==1)); then
-        django-admin startproject $1
-        cd $1
-        python3 manage.py startapp mainApp
-        echo "Done"
-    else
-        echo "One argument that is the project name"
-    fi
-}
+export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+source /home/gaurav/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
