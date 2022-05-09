@@ -112,6 +112,11 @@ neofetch
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
 
-export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 source /home/gaurav/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/gaurav/code/google-cloud-sdk/path.zsh.inc' ]; then . '/home/gaurav/code/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/gaurav/code/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/gaurav/code/google-cloud-sdk/completion.zsh.inc'; fi
+
