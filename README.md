@@ -1,6 +1,6 @@
 # myZSH
 
-    Assuming you already have [oh my zsh](https://ohmyz.sh/#install) setup
+Assuming you already have [oh my zsh](https://ohmyz.sh/#install) setup
 
 ## Run the following script to add my zsh to your zsh shell
 
